@@ -1,4 +1,9 @@
-1. IT202-008
-2. Lap Le
-3. I am a currently a Junior in NJIT persuing a degree in Information Technology. I am local to Jersey City, NJ where I was born and raised. My hobbies consists of playing video games, fixing my car and motorcycle. I also work two jobs throughout the semester as a cafe manager and an IT Technician at an MSP. I'm very interested in Cloud Computing but I'm more skillful in Linux. I plan on learning AWS and Azure but also want to become Red Hat certified so I'm stuck on what career path I want to persue. I'm also very interested in this class because I never worked with Git and Github before and learning new things makes me excited. Looking forward to this semester in IT202.
-4. 1/30/22
+# Heroku Setup
+
+- 08/30/2021 removed .htaccess and updated Procfile to use public_html as docroot
+- Profile tells Heroku how to deploy
+- Composer.json mentions what libraries will be used 
+- public_html contains all public facing content
+- partials will be templates/partial pages that will NOT be accessed directly (still can reference via code)
+- lib will be custom functions/libraries/etc that will NOT be accessed directly (still can be referenced via code)
+- All work will be subfolders inside public_html (for the most part), lib will contain reusable functionality, partials will contain reusable templates, nothing else should change.
