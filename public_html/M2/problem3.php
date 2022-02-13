@@ -11,9 +11,9 @@ function bePositive($arr) {
     foreach($arr as $number)
     {
         if($number < 0)
-            echo $number * -1;
+            echo ($number * -1 . " ");
         else
-            echo $number;
+            echo ($number . " ");
     }
 
 }

@@ -11,7 +11,7 @@ function processArray($arr) {
     foreach($arr as $number)
     {
         if($number % 2 == 1)
-            echo $number;
+            echo($number . " ");
     }
 
 }
