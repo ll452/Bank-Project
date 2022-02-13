@@ -13,8 +13,7 @@ function getTotal($arr) {
     }
     //TODO do rounding stuff here
     echo "\n";
-    echo "Raw Total is: " . var_export($total, true);
-    echo "\n";
+    echo "Raw Total is: " . var_export($total, true)."\n";
     $total = round($total);
     echo "The total is: " . var_export($total, true);
 }
