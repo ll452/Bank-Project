@@ -4,6 +4,7 @@ reset_session();
 ?>
 <form onsubmit="return validate(this)" method="POST">
     <div>
+        <h1>Register</h1>
         <label for="email">Email</label>
         <input type="email" name="email" required />
     </div>
@@ -84,6 +85,7 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
         try {
             $stmt->execute([":email" => $email, ":password" => $hash, ":username" => $username]);
             flash("Successfully registered!", "success");
+            die(header("Location: login.php"));
         } catch (Exception $e) {
             users_check_duplicate($e->errorInfo);
         }
