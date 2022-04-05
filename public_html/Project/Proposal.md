@@ -17,24 +17,35 @@
 ### Proposal Checklist and Evidence
 
 - Milestone 1
-    - [ ] \(mm/dd/yyyy of completion) User will be able to register a new account
-        -  Link to related .md file: [Link Name](link url)
-    - [x] \(3/31/2022) User will be able to login to their account (given they enter the correct credentials)
-        -  Link to related .md file: [Link Name](link url)
-    - [x] \(3/31/2022) User will be able to logout
-        -  Link to related .md file: [Link Name](link url)
+    - [x] \(3/3/2022) User will be able to register a new account
+        -  [Milestone 1 Markdown](https://github.com/ll452/IT202/blob/Milestone1/public_html/Project/milestone1.md)
+        -  [https://ll452-prod.herokuapp.com/Project/register.php](https://ll452-prod.herokuapp.com/Project/register.php)
+    - [x] \(3/3/2022) User will be able to login to their account (given they enter the correct credentials)
+        -  [Milestone 1 Markdown](https://github.com/ll452/IT202/blob/Milestone1/public_html/Project/milestone1.md)
+        -  [https://ll452-prod.herokuapp.com/Project/login.php](https://ll452-prod.herokuapp.com/Project/login.php)
+    - [x] \(3/3/2022) User will be able to logout
+        -  [Milestone 1 Markdown](https://github.com/ll452/IT202/blob/Milestone1/public_html/Project/milestone1.md)
+        -  [https://ll452-prod.herokuapp.com/Project/logout.php](https://ll452-prod.herokuapp.com/Project/logout.php)
     - [x] \(3/31/2022) Basic security rules implemented
-        -  Link to related .md file: [Link Name](link url)
-    - [x] \(4/1/2022) Basic Roles implemented
-        -  Link to related .md file: [Link Name](link url)
-    - [ ] \(mm/dd/yyyy of completion) Site should have basic styles/theme applied; everything should be styled
-        -  Link to related .md file: [Link Name](link url)
-    - [x] \(4/1/2022) Any output messages/errors should be “user friendly”
-        -  Link to related .md file: [Link Name](link url)
-    - [x] \(3/31/2022) User will be able to see their profile
-        -  Link to related .md file: [Link Name](link url)
-    - [ ] \(mm/dd/yyyy of completion) User will be able to edit their profile
-        -  Link to related .md file: [Link Name](link url)
+        -  [Milestone 1 Markdown](https://github.com/ll452/IT202/blob/Milestone1/public_html/Project/milestone1.md)
+        -  [https://ll452-prod.herokuapp.com/Project/profile.php](https://ll452-prod.herokuapp.com/Project/profile.php)
+    - [x] \(3/31/2022) Basic Roles implemented
+        -  [Milestone 1 Markdown](https://github.com/ll452/IT202/blob/Milestone1/public_html/Project/milestone1.md)
+        -  [https://ll452-prod.herokuapp.com/Project/admin/create_role.php](https://ll452-prod.herokuapp.com/Project/admin/create_role.php)
+    - [x] \(3/31/2022 of completion) Site should have basic styles/theme applied; everything should be styled
+        -  [Milestone 1 Markdown](https://github.com/ll452/IT202/blob/Milestone1/public_html/Project/milestone1.md)
+        -  [https://ll452-prod.herokuapp.com/Project/home.php](https://ll452-prod.herokuapp.com/Project/home.php)
+        -  [https://ll452-prod.herokuapp.com/Project/styles.css](https://ll452-prod.herokuapp.com/Project/styles.css)
+    - [x] \(3/3/2022) Any output messages/errors should be “user friendly”
+        -  [Milestone 1 Markdown](https://github.com/ll452/IT202/blob/Milestone1/public_html/Project/milestone1.md)
+        -  [https://ll452-prod.herokuapp.com/Project/logout.php](https://ll452-prod.herokuapp.com/Project/logout.php)
+    - [x] \(3/3/2022) User will be able to see their profile
+        -  [Milestone 1 Markdown](https://github.com/ll452/IT202/blob/Milestone1/public_html/Project/milestone1.md)
+        -  [https://ll452-prod.herokuapp.com/Project/profile.php](https://ll452-prod.herokuapp.com/Project/profile.php)
+    - [x] \(3/3/2022) User will be able to edit their profile
+        -  [Milestone 1 Markdown](https://github.com/ll452/IT202/blob/Milestone1/public_html/Project/milestone1.md)
+        -  [https://ll452-prod.herokuapp.com/Project/profile.php](https://ll452-prod.herokuapp.com/Project/profile.php)
+
 - Milestone 2
   - (duplicate template here for Milestone 1 features)
 - Milestone 3
