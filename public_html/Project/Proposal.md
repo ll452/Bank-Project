@@ -51,9 +51,9 @@
         -  Link to related .md file: [Link Name](link url)
     - [x] \(4/9/2022) Project setup steps
         -  Link to related .md file: [Link Name](link url)
-    - [ ] \(mm/dd/yyyy of completion) Create the Transactions table
+    - [x] \(4/9/2022) Create the Transactions table
         -  Link to related .md file: [Link Name](link url)
-    - [ ] \(mm/dd/yyyy of completion) Dashboard page
+    - [x] \(4/10/2022) Dashboard page
         -  Link to related .md file: [Link Name](link url)
     - [ ] \(mm/dd/yyyy of completion) User will be able to create a checking account
         -  Link to related .md file: [Link Name](link url)
