@@ -47,13 +47,13 @@
         -  [https://ll452-prod.herokuapp.com/Project/profile.php](https://ll452-prod.herokuapp.com/Project/profile.php)
 
 - Milestone 2
-    - [ ] \(mm/dd/yyyy of completion) Create the Accounts table (id, account_number [unique, always 12 characters], user_id, balance (default 0), account_type, created, modified)
+    - [x] \(4/9/2022) Create the Accounts table (id, account_number [unique, always 12 characters], user_id, balance (default 0), account_type, created, modified)
         -  Link to related .md file: [Link Name](link url)
-    - [ ] \(mm/dd/yyyy of completion) Project setup steps
+    - [x] \(4/9/2022) Project setup steps
         -  Link to related .md file: [Link Name](link url)
-    - [ ] \(mm/dd/yyyy of completion) Create the Transactions table
+    - [x] \(4/9/2022) Create the Transactions table
         -  Link to related .md file: [Link Name](link url)
-    - [ ] \(mm/dd/yyyy of completion) Dashboard page
+    - [x] \(4/10/2022) Dashboard page
         -  Link to related .md file: [Link Name](link url)
     - [ ] \(mm/dd/yyyy of completion) User will be able to create a checking account
         -  Link to related .md file: [Link Name](link url)
