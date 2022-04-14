@@ -16,6 +16,10 @@ if (is_logged_in(true)) {
             <input class="form-control" type="text" id="acc_type" name="acc_type" required value="Checking" />
         </div>
         <div class="mb-3">
+            <label class="form-label" for="min_deposit">Minimum Deposit (Required)</label>
+            <input class="form-control" type="text" id="deposit" name="deposit" required value="5"/>
+        </div>
+        <div class="mb-3">
             <label class="form-label" for="pw">Password</label>
             <input class="form-control" type="password" id="pw" name="password" required minlength="8" />
         </div>
@@ -39,7 +43,13 @@ if (is_logged_in(true)) {
     {
         $password = se($_POST, "password", "", false);
         $confirm = se($_POST, "confirm", "", false);
+        $deposit = se($_POST, "deposit", "", false);
         $hasError = false;
+
+        if($deposit < 5) {
+            flash("Desposit Has to be a minimum of $5", "danger");
+            $hasError = true; 
+        }
         if (empty($password)) {
             flash("password must not be empty", "danger");
             $hasError = true;
@@ -72,16 +82,19 @@ if (is_logged_in(true)) {
                     $result = $stmt->fetch(PDO::FETCH_ASSOC);
                     $user_id = get_user_id(); //caching a reference
                     $account_type = se($_POST, "acc_type", "", false);
+                    $deposit = se($_POST, "deposit", "", false);
                     $query = "INSERT INTO Accounts (account_type, user_id) VALUES (:at, :uid)";
                     $stmt = $db->prepare($query);
                     if (!$result) {
                         //account doesn't exist, create it
                         try {
                             $stmt->execute([":at" => $account_type, ":uid" => $user_id]);
-                            flash("Welcome! Your account has been created successfully", "success");
                             $account["id"] = $db->lastInsertId();
                             //this should mimic what's happening in the DB without requiring me to fetch the data
                             $account["account_number"] = str_pad($user_id, 12, "0");
+                            flash("Welcome! Your account has been created successfully", "success");
+                            makeDeposit($deposit, "Deposit", -1, $account["id"], "Intial Deposit for Created Account");
+                            //die(header("Location: list_accounts.php"));
                         } catch (PDOException $e) {
                             flash("An error occurred while creating your account", "danger");
                             error_log(var_export($e, true));
@@ -92,7 +105,10 @@ if (is_logged_in(true)) {
                         $account_number = randomNumber(12);
                         $stmt = $db->prepare($query);
                         $stmt->execute([":an" => $account_number, ":at" => $account_type, ":uid" => $user_id]);
+                        $account["id"] = $db->lastInsertId();
                         flash("Welcome! Your NEW account has been created successfully", "success");
+                        makeDeposit($deposit, "Deposit", -1, $account["id"], "Intial Deposit for Created Account");
+                        //die(header("Location: list_accounts.php"));
                     }
                 } catch (PDOException $e) {
                     flash("Technical error: " . var_export($e->errorInfo, true), "danger");
