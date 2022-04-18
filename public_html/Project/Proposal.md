@@ -48,21 +48,21 @@
 
 - Milestone 2
     - [x] \(4/9/2022) Create the Accounts table (id, account_number [unique, always 12 characters], user_id, balance (default 0), account_type, created, modified)
-        -  Link to related .md file: [Link Name](link url)
+        -  [Milestone 2 Markdown](https://github.com/ll452/IT202/blob/Milestone2/public_html/Project/milestone2.md)
     - [x] \(4/9/2022) Project setup steps
-        -  Link to related .md file: [Link Name](link url)
+        -  [Milestone 2 Markdown](https://github.com/ll452/IT202/blob/Milestone2/public_html/Project/milestone2.md)
     - [x] \(4/9/2022) Create the Transactions table
-        -  Link to related .md file: [Link Name](link url)
+        -  [Milestone 2 Markdown](https://github.com/ll452/IT202/blob/Milestone2/public_html/Project/milestone2.md)
     - [x] \(4/10/2022) Dashboard page
-        -  Link to related .md file: [Link Name](link url)
-    - [ ] \(mm/dd/yyyy of completion) User will be able to create a checking account
-        -  Link to related .md file: [Link Name](link url)
-    - [ ] \(mm/dd/yyyy of completion) User will be able to list their accounts
-        -  Link to related .md file: [Link Name](link url)
-    - [ ] \(mm/dd/yyyy of completion) User will be able to click an account for more information (a.k.a Transaction History page)
-        -  Link to related .md file: [Link Name](link url)
-    - [ ] \(mm/dd/yyyy of completion) User will be able to deposit/withdraw from their account(s)
-        -  Link to related .md file: [Link Name](link url)
+        -  [Milestone 2 Markdown](https://github.com/ll452/IT202/blob/Milestone2/public_html/Project/milestone2.md)
+    - [x] \(mm/dd/yyyy of completion) User will be able to create a checking account
+        -  [Milestone 2 Markdown](https://github.com/ll452/IT202/blob/Milestone2/public_html/Project/milestone2.md)
+    - [x] \(mm/dd/yyyy of completion) User will be able to list their accounts
+        -  [Milestone 2 Markdown](https://github.com/ll452/IT202/blob/Milestone2/public_html/Project/milestone2.md)
+    - [x] \(mm/dd/yyyy of completion) User will be able to click an account for more information (a.k.a Transaction History page)
+        -  [Milestone 2 Markdown](https://github.com/ll452/IT202/blob/Milestone2/public_html/Project/milestone2.md)
+    - [x] \(mm/dd/yyyy of completion) User will be able to deposit/withdraw from their account(s)
+        -  [Milestone 2 Markdown](https://github.com/ll452/IT202/blob/Milestone2/public_html/Project/milestone2.md)
 
   
 
