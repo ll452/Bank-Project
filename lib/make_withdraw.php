@@ -5,13 +5,13 @@
  * $losing should be where the points are coming from
  * $gaining should be where the points are going
  */
-function makeDeposit($amount, $reason, $losing = -1, $gaining = -1, $details = "")
+function makeWithdraw($amount, $reason, $losing = -1, $gaining = -1, $details = "")
 {
     //I'm choosing to ignore the record of 0 point transactions
     if ($amount > 0) 
     {
-        $losing_id = -1;
-        $gaining_id = get_user_id();
+        $gaining_id = -1;
+        $losing_id = get_user_id();
         $query = "INSERT INTO Transactions (account_src, account_dest, balance_change, transaction_type, memo, expected_total) 
             VALUES (:acs1, :acd1, :bc, :r,:m, :et1), 
             (:acs2, :acd2, :bc2, :r, :m, :et2)";
@@ -33,10 +33,10 @@ function makeDeposit($amount, $reason, $losing = -1, $gaining = -1, $details = "
             $stmt->execute($params);
             refresh_account_balance($losing);
             refresh_account_balance($gaining);
-            flash("Deposit Made", "Success");
+            flash("Withdrawal Made", "Success");
         } catch (PDOException $e) {
             error_log(var_export($e->errorInfo, true));
-            flash("There was an error depositing money", "danger");
+            flash("There was an error withdrawing money", "danger");
         }
     }
 }

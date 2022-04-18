@@ -28,6 +28,8 @@ require(__DIR__ . "/make_deposit.php");
 require(__DIR__ . "/account_helpers.php");
 
 require(__DIR__ . "/refresh_account_balance.php");
+
+require(__DIR__ . "/make_withdraw.php");
 ?>
 
 <?php

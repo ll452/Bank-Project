@@ -27,7 +27,7 @@ if (is_logged_in(true)) {
             <label class="form-label" for="confirm">Confirm</label>
             <input class="form-control" type="password" name="confirm" required minlength="8" />
         </div>
-        <input type="submit" class="mt-3 btn btn-primary" value="Submit" />
+        <input type="submit" class="mt-3 btn btn-primary" value="Create" />
     </form>
 </div>
 <script>
