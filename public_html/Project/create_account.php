@@ -12,9 +12,11 @@ if (is_logged_in(true)) {
     <h1>Create Account</h1>
     <form onsubmit="return validate(this)" method="POST">
         <div class="mb-3">
-            <label class="form-label" for="account_type">Account Type</label>
-            <input class="form-control" type="text" id="acc_type" name="acc_type" required value="Checking" />
-        </div>
+            <label for="account_type" class="form-label">Account Type</label>
+            <select id="acc_type" name="acc_type" class="form-select">
+              <option> <?php se($account, "account_number"); ?> </option>
+            </select>
+        </div> 
         <div class="mb-3">
             <label class="form-label" for="min_deposit">Minimum Deposit (Required)</label>
             <input class="form-control" type="text" id="deposit" name="deposit" required value="5"/>
