@@ -14,7 +14,7 @@ if (is_logged_in(true)) {
         <div class="mb-3">
             <label for="account_type" class="form-label">Account Type</label>
             <select id="acc_type" name="acc_type" class="form-select">
-              <option> <?php se($account, "account_number"); ?> </option>
+              <option>Checking</option>
             </select>
         </div> 
         <div class="mb-3">
