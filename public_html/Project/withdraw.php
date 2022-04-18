@@ -48,7 +48,7 @@ $accounts = $results;
 </script>
 
 <?php
-    if (isset($_POST["amount"]) ) 
+    if (isset($_POST["amount"]) && isset($_POST["account"]))  
     {
         $amount = se($_POST, "amount", "", false);
         $account = se($_POST, "account", "", false);
@@ -82,7 +82,7 @@ $accounts = $results;
 
         if(!$hasError)
             {
-                makeWithdraw($amount, "Withdraw", $id, -1, $memo);
+                makeWithdraw($account, $amount, "Withdraw", $id, -1, $memo);
                 flash("Withdraw Successful", "Success");
             }
     }

@@ -26,16 +26,6 @@ $accounts = $results;
         <?php endforeach; ?>
       </select>
     </div>
-<!--
-    <div class="mb-3">
-      <label for="which_id" class="form-label">ID</label>
-      <select id="account_id" name="account_id" class="form-select">
-        <?php foreach ($accounts as $account) : ?>
-            <option> <?php se($account, "id"); ?> </option>
-        <?php endforeach; ?>
-      </select>
-    </div>
-        -->
     <div class="mb-3">
       <label for="deposit_amount" class="form-label">Deposit Amount</label>
       <input type="text" id="amount" name="amount" class="form-control" >
@@ -54,7 +44,7 @@ $accounts = $results;
 </script>
 
 <?php
-    if (isset($_POST["amount"])) 
+    if (isset($_POST["amount"]) && isset($_POST["account"])) 
     {
         $amount = se($_POST, "amount", "", false);
         $account = se($_POST, "account", "", false);
@@ -78,7 +68,7 @@ $accounts = $results;
         }
         if(!$hasError)
             {
-            makeDeposit($amount, "Deposit", -1, $id, "User Made Manual Deposit");
+            makeDeposit($account, $amount, "Deposit", -1, $id, "User Made Manual Deposit");
             flash("Deposit Made", "Success");
             }
     }

@@ -1,11 +1,11 @@
 <?php
-function get_user_account_balance($user_id)
+function get_user_account_balance($acc_num)
 {
-    $query = "SELECT balance from Accounts WHERE user_id = :id";
+    $query = "SELECT balance from Accounts WHERE account_number = :an";
     $db = getDB();
     $stmt = $db->prepare($query);
     try {
-        $stmt->execute([":id" => $user_id]);
+        $stmt->execute([":an" => $acc_num]);
         $r = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($r) {
             return (int)se($r, "balance", 0, false);

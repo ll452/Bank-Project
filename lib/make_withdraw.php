@@ -5,13 +5,12 @@
  * $losing should be where the points are coming from
  * $gaining should be where the points are going
  */
-function makeWithdraw($amount, $reason, $losing = -1, $gaining = -1, $details = "")
+function makeWithdraw($account_num, $amount, $reason, $losing = -1, $gaining = -1, $details = "")
 {
     //I'm choosing to ignore the record of 0 point transactions
     if ($amount > 0) 
     {
-        $gaining_id = -1;
-        $losing_id = get_user_id();
+        $gaining_id = "000000000000";
         $query = "INSERT INTO Transactions (account_src, account_dest, balance_change, transaction_type, memo, expected_total) 
             VALUES (:acs1, :acd1, :bc, :r,:m, :et1), 
             (:acs2, :acd2, :bc2, :r, :m, :et2)";
@@ -21,7 +20,7 @@ function makeWithdraw($amount, $reason, $losing = -1, $gaining = -1, $details = 
         $params[":r"] = $reason;
         $params[":m"] = $details;
         $params[":bc"] = ($amount * -1);
-        $params[":et1"] = get_user_account_balance($losing_id) + ($amount * -1);
+        $params[":et1"] = get_user_account_balance($account_num) + ($amount * -1);
 
         $params[":acs2"] = $gaining;
         $params[":acd2"] = $losing;

@@ -93,8 +93,8 @@ if (is_logged_in(true)) {
                             //this should mimic what's happening in the DB without requiring me to fetch the data
                             $account["account_number"] = str_pad($user_id, 12, "0");
                             flash("Welcome! Your account has been created successfully", "success");
-                            makeDeposit($deposit, "Deposit", -1, $account["id"], "Intial Deposit for Created Account");
-                            //die(header("Location: list_accounts.php"));
+                            makeIntialDeposit($deposit, "Deposit", -1, $account["id"], "Intial Deposit for Created Account");
+                            die(header("Location: list_accounts.php"));
                         } catch (PDOException $e) {
                             flash("An error occurred while creating your account", "danger");
                             error_log(var_export($e, true));
@@ -107,8 +107,8 @@ if (is_logged_in(true)) {
                         $stmt->execute([":an" => $account_number, ":at" => $account_type, ":uid" => $user_id]);
                         $account["id"] = $db->lastInsertId();
                         flash("Welcome! Your NEW account has been created successfully", "success");
-                        makeDeposit($deposit, "Deposit", -1, $account["id"], "Intial Deposit for Created Account");
-                        //die(header("Location: list_accounts.php"));
+                        makeIntialDeposit($deposit, "Deposit", -1, $account["id"], "Intial Deposit for Created Account");
+                        die(header("Location: list_accounts.php"));
                     }
                 } catch (PDOException $e) {
                     flash("Technical error: " . var_export($e->errorInfo, true), "danger");
