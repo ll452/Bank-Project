@@ -17,26 +17,62 @@
 ### Proposal Checklist and Evidence
 
 - Milestone 1
-    - [ ] \(mm/dd/yyyy of completion) User will be able to register a new account
-        -  Link to related .md file: [Link Name](link url)
-    - [ ] \(mm/dd/yyyy of completion) User will be able to login to their account (given they enter the correct credentials)
-        -  Link to related .md file: [Link Name](link url)
-    - [ ] \(mm/dd/yyyy of completion) User will be able to logout
-        -  Link to related .md file: [Link Name](link url)
-    - [ ] \(mm/dd/yyyy of completion) Basic security rules implemented
-        -  Link to related .md file: [Link Name](link url)
-    - [ ] \(mm/dd/yyyy of completion) Basic Roles implemented
-        -  Link to related .md file: [Link Name](link url)
-    - [ ] \(mm/dd/yyyy of completion) Site should have basic styles/theme applied; everything should be styled
-        -  Link to related .md file: [Link Name](link url)
-    - [ ] \(mm/dd/yyyy of completion) Any output messages/errors should be “user friendly”
-        -  Link to related .md file: [Link Name](link url)
-    - [ ] \(mm/dd/yyyy of completion) User will be able to see their profile
-        -  Link to related .md file: [Link Name](link url)
-    - [ ] \(mm/dd/yyyy of completion) User will be able to edit their profile
-        -  Link to related .md file: [Link Name](link url)
+    - [x] \(3/3/2022) User will be able to register a new account
+        -  [Milestone 1 Markdown](https://github.com/ll452/IT202/blob/Milestone1/public_html/Project/milestone1.md)
+        -  [https://ll452-prod.herokuapp.com/Project/register.php](https://ll452-prod.herokuapp.com/Project/register.php)
+    - [x] \(3/3/2022) User will be able to login to their account (given they enter the correct credentials)
+        -  [Milestone 1 Markdown](https://github.com/ll452/IT202/blob/Milestone1/public_html/Project/milestone1.md)
+        -  [https://ll452-prod.herokuapp.com/Project/login.php](https://ll452-prod.herokuapp.com/Project/login.php)
+    - [x] \(3/3/2022) User will be able to logout
+        -  [Milestone 1 Markdown](https://github.com/ll452/IT202/blob/Milestone1/public_html/Project/milestone1.md)
+        -  [https://ll452-prod.herokuapp.com/Project/logout.php](https://ll452-prod.herokuapp.com/Project/logout.php)
+    - [x] \(3/31/2022) Basic security rules implemented
+        -  [Milestone 1 Markdown](https://github.com/ll452/IT202/blob/Milestone1/public_html/Project/milestone1.md)
+        -  [https://ll452-prod.herokuapp.com/Project/profile.php](https://ll452-prod.herokuapp.com/Project/profile.php)
+    - [x] \(3/31/2022) Basic Roles implemented
+        -  [Milestone 1 Markdown](https://github.com/ll452/IT202/blob/Milestone1/public_html/Project/milestone1.md)
+        -  [https://ll452-prod.herokuapp.com/Project/admin/create_role.php](https://ll452-prod.herokuapp.com/Project/admin/create_role.php)
+    - [x] \(3/31/2022 of completion) Site should have basic styles/theme applied; everything should be styled
+        -  [Milestone 1 Markdown](https://github.com/ll452/IT202/blob/Milestone1/public_html/Project/milestone1.md)
+        -  [https://ll452-prod.herokuapp.com/Project/home.php](https://ll452-prod.herokuapp.com/Project/home.php)
+        -  [https://ll452-prod.herokuapp.com/Project/styles.css](https://ll452-prod.herokuapp.com/Project/styles.css)
+    - [x] \(3/3/2022) Any output messages/errors should be “user friendly”
+        -  [Milestone 1 Markdown](https://github.com/ll452/IT202/blob/Milestone1/public_html/Project/milestone1.md)
+        -  [https://ll452-prod.herokuapp.com/Project/logout.php](https://ll452-prod.herokuapp.com/Project/logout.php)
+    - [x] \(3/3/2022) User will be able to see their profile
+        -  [Milestone 1 Markdown](https://github.com/ll452/IT202/blob/Milestone1/public_html/Project/milestone1.md)
+        -  [https://ll452-prod.herokuapp.com/Project/profile.php](https://ll452-prod.herokuapp.com/Project/profile.php)
+    - [x] \(3/3/2022) User will be able to edit their profile
+        -  [Milestone 1 Markdown](https://github.com/ll452/IT202/blob/Milestone1/public_html/Project/milestone1.md)
+        -  [https://ll452-prod.herokuapp.com/Project/profile.php](https://ll452-prod.herokuapp.com/Project/profile.php)
+
 - Milestone 2
-  - (duplicate template here for Milestone 1 features)
+    - [x] \(4/9/2022) Create the Accounts table (id, account_number [unique, always 12 characters], user_id, balance (default 0), account_type, created, modified)
+        -  [Milestone 2 Markdown](https://github.com/ll452/IT202/blob/Milestone2/public_html/Project/milestone2.md)
+        -  [https://ll452-prod.herokuapp.com/Project/sql/init_db.php](https://ll452-prod.herokuapp.com/Project/sql/init_db.php)
+    - [x] \(4/9/2022) Project setup steps
+        -  [Milestone 2 Markdown](https://github.com/ll452/IT202/blob/Milestone2/public_html/Project/milestone2.md)
+        -  [https://ll452-prod.herokuapp.com/Project/sql/init_db.php](https://ll452-prod.herokuapp.com/Project/sql/init_db.php)
+    - [x] \(4/9/2022) Create the Transactions table
+        -  [Milestone 2 Markdown](https://github.com/ll452/IT202/blob/Milestone2/public_html/Project/milestone2.md)
+        -  [https://ll452-prod.herokuapp.com/Project/sql/init_db.php](https://ll452-prod.herokuapp.com/Project/sql/init_db.php)
+    - [x] \(4/10/2022) Dashboard page
+        -  [Milestone 2 Markdown](https://github.com/ll452/IT202/blob/Milestone2/public_html/Project/milestone2.md)
+        -  [https://ll452-prod.herokuapp.com/Project/home.php](https://ll452-prod.herokuapp.com/Project/home.php)
+    - [x] \(4/15/2022) User will be able to create a checking account
+        -  [Milestone 2 Markdown](https://github.com/ll452/IT202/blob/Milestone2/public_html/Project/milestone2.md)
+        -  [https://ll452-prod.herokuapp.com/Project/create_account.php](https://ll452-prod.herokuapp.com/Project/create_account.php)
+    - [x] \(4/15/2022) User will be able to list their accounts
+        -  [Milestone 2 Markdown](https://github.com/ll452/IT202/blob/Milestone2/public_html/Project/milestone2.md)
+        -  [https://ll452-prod.herokuapp.com/Project/list_accounts.php](https://ll452-prod.herokuapp.com/Project/list_accounts.php)
+    - [x] \(4/17/2022) User will be able to click an account for more information (a.k.a Transaction History page)
+        -  [Milestone 2 Markdown](https://github.com/ll452/IT202/blob/Milestone2/public_html/Project/milestone2.md)
+        -  [https://ll452-prod.herokuapp.com/Project/transaction_history.php?id=1&acc_num=000000000001](https://ll452-prod.herokuapp.com/Project/transaction_history.php?id=1&acc_num=000000000001)
+    - [x] \(4/17/2022) User will be able to deposit/withdraw from their account(s)
+        -  [Milestone 2 Markdown](https://github.com/ll452/IT202/blob/Milestone2/public_html/Project/milestone2.md)
+        -  [https://ll452-prod.herokuapp.com/Project/deposit.php](https://ll452-prod.herokuapp.com/Project/deposit.php)
+        -  [https://ll452-prod.herokuapp.com/Project/withdraw.php](https://ll452-prod.herokuapp.com/Project/withdraw.php)
+
 - Milestone 3
   - (duplicate template here for Milestone 1 features)
 - Milestone 4
