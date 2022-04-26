@@ -16,21 +16,34 @@ $accounts = $results;
 
 
 <div class="container-fluid">
-<h1>Make Deposit</h1>
+<h1>Transfer</h1>
 <form onsubmit="return validate(this)" method="POST">
     <div class="mb-3">
-      <label for="which_account" class="form-label">Account</label>
-      <select id="account" name="account" class="form-select">
+      <label for="acc_src" class="form-label">Source Account</label>
+      <select id="account" name="account_src" class="form-select">
         <?php foreach ($accounts as $account) : ?>
             <option> <?php se($account, "account_number"); ?> </option>
         <?php endforeach; ?>
       </select>
     </div>
     <div class="mb-3">
-      <label for="deposit_amount" class="form-label">Deposit Amount</label>
+      <label for="acc_dest" class="form-label">Destination Account</label>
+      <select id="account" name="account_dest" class="form-select">
+        <?php foreach ($accounts as $account) : ?>
+            <option> <?php se($account, "account_number"); ?> </option>
+        <?php endforeach; ?>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="deposit_amount" class="form-label">Transfer Amount</label>
       <input type="text" id="amount" name="amount" class="form-control" >
     </div>
-    <button type="submit" class="btn btn-primary">Deposit</button>
+    <div class="form-floating">
+        <textarea class="form-control" placeholder="Leave a memo here" id="memoTextarea" name="memoTextArea"></textarea>
+        <label for="memoTextarea">Memo (Optional)</label>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Transfer</button>
 </form>
 </div>
 
@@ -44,32 +57,41 @@ $accounts = $results;
 </script>
 
 <?php
-    if (isset($_POST["amount"]) && isset($_POST["account"])) 
+    if (isset($_POST["amount"]) && isset($_POST["account_src"]) && isset($_POST["account_dest"])) 
     {
         $amount = se($_POST, "amount", "", false);
-        $account = se($_POST, "account", "", false);
-        $query = "SELECT id, balance From Accounts WHERE account_number = $account";
-        $db = getDB();
-        $params = null;
-        $stmt = $db->prepare($query);
-        $stmt->execute($params);
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $id = "";
-        $balance = 0;
-        foreach ($results as $id) :
-          $id = se($id, "id","",false); 
-          $balance = se($id, "balance","",false); 
-        endforeach;
+        $account_src = se($_POST, "account_src", "", false);
+        $account_dest = se($_POST, "account_dest", "", false);
+        $memo = se($_POST, "memoTextArea", "", false);
+        $balance = get_user_account_balance($account_src);
+        $destination_id = get_user_account_id($account_dest);
+        $source_id = get_user_account_id($account_src);
         $hasError = false;
 
+
+        if((strlen($memo) == 0)) {
+            $memo = "User Made Withdrawal";
+        }
+
+        if($account_src === $account_dest)
+        {
+            flash("Cannot Transfer to Same Account", "danger");
+            $hasError = true;
+        }
+
+        if($amount > $balance) {
+            flash("Can't Withdraw More Than Balance", "danger");
+            $hasError = true; 
+        }
+
         if($amount <= 0) {
-            flash("Desposit Has to be more than $0", "danger");
+            flash("Transfer Has to be more than $0", "danger");
             $hasError = true; 
         }
         if(!$hasError)
             {
-            makeDeposit($account, $amount, "Deposit", -1, $id, "User Made Manual Deposit");
-            flash("Deposit Made", "Success");
+            makeTransfer($account_dest, $amount, "Transfer", $source_id, $destination_id, "User Made Manual Transfer");
+            flash("Transfer Made", "Success");
             }
     }
 ?>
