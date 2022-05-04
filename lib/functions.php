@@ -50,7 +50,6 @@ function makeTransfer($account_num, $amount, $reason, $losing = -1, $gaining = -
     if ($amount > 0) 
     {
         $losing_id = get_user_account_number($losing);
-        echo $losing_id;
         $query = "INSERT INTO Transactions (account_src, account_dest, balance_change, transaction_type, memo, expected_total) 
             VALUES (:acs1, :acd1, :bc, :r,:m, :et1), 
             (:acs2, :acd2, :bc2, :r, :m, :et2)";
@@ -78,6 +77,25 @@ function makeTransfer($account_num, $amount, $reason, $losing = -1, $gaining = -
             flash("There was an error transfering money", "danger");
         }
     }
+}
+
+function setProfileName ($fname, $lname)
+{
+    $query = "UPDATE Users set firstname = :fn, lastname = :ln WHERE id = :id";
+    $params[":id"] = get_user_id();
+    $params[":fn"] = $fname;
+    $params[":ln"] = $lname;
+    $db = getDB();
+    $stmt = $db->prepare($query);
+    try {
+        $stmt->execute($params);
+        flash("Profile Name Set", "Success");
+    } catch (PDOException $e) {
+        error_log(var_export($e->errorInfo, true));
+        flash("There was an error setting profile name", "danger");
+        echo $fname, $lname;
+    }
+
 }
 
 
