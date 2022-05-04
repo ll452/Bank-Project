@@ -74,7 +74,15 @@
         -  [https://ll452-prod.herokuapp.com/Project/withdraw.php](https://ll452-prod.herokuapp.com/Project/withdraw.php)
 
 - Milestone 3
-  - (duplicate template here for Milestone 1 features)
+    - [x] \(mm/dd/yyyy of completion) User will be able to transfer between their accounts
+        -  [Milestone 3 Markdown](https://github.com/ll452/IT202/blob/Milestone3/public_html/Project/milestone3.md)
+    - [ ] \(mm/dd/yyyy of completion) Transaction History page
+        -  [Milestone 3 Markdown](https://github.com/ll452/IT202/blob/Milestone3/public_html/Project/milestone3.md)
+    - [x] \(mm/dd/yyyy of completion) User’s profile page should record/show First and Last name
+        -  [Milestone 3 Markdown](https://github.com/ll452/IT202/blob/Milestone3/public_html/Project/milestone3.md)
+    - [ ] \(mm/dd/yyyy of completion) User will be able to transfer funds to another user’s account
+        -  [Milestone 3 Markdown](https://github.com/ll452/IT202/blob/Milestone3/public_html/Project/milestone3.md)    
+
 - Milestone 4
   - (duplicate template here for Milestone 1 features)
   - 
