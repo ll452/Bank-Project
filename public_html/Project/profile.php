@@ -85,18 +85,36 @@ if (isset($_POST["save"])) {
                 flash("New passwords don't match", "warning");
             }
         }
-    }
+    }    
 }
 ?>
 
 <?php
 $email = get_user_email();
 $username = get_username();
+$firstname = "";
+$lastname = "";
+$db = getDB();
+$stmt = $db->prepare("SELECT firstname, lastname from Users where id = :id");
+$stmt->execute([":id" => get_user_id()]);
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+foreach ($result as $x):
+    $firstname = se($x, "firstname","",false); 
+    $lastname = se($x, "lastname","",false); 
+endforeach;
 ?>
 
 <div class="container-fluid">
     <h1>Profile</h1>
     <form method="POST" onsubmit="return validate(this);">
+        <div class="mb-3">
+            <label class="form-label" for="fname">First Name</label>
+            <input class="form-control" type="text" name="fname" id="fname" value="<?php se($firstname); ?>" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="lname">Last Name</label>
+            <input class="form-control" type="text" name="lname" id="lname" value="<?php se($lastname); ?>" />
+        </div>
         <div class="mb-3">
             <label class="form-label" for="email">Email</label>
             <input class="form-control" type="email" name="email" id="email" value="<?php se($email); ?>" />
@@ -122,6 +140,17 @@ $username = get_username();
         <input type="submit" class="mt-3 btn btn-primary" value="Update Profile" name="save" />
     </form>
 </div>
+
+<?php
+    if (isset($_POST["fname"]) && isset($_POST["lname"]))
+    {
+        $firstname_change = se($_POST, "fname", "", false);
+        $lastname_change = se($_POST, "lname", "", false);
+        setProfileName($firstname_change, $lastname_change);
+    }
+    
+?>
+
 
 <script>
     function validate(form) {
