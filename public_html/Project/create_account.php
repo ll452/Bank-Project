@@ -15,6 +15,7 @@ if (is_logged_in(true)) {
             <label for="account_type" class="form-label">Account Type</label>
             <select id="acc_type" name="acc_type" class="form-select">
               <option>Checking</option>
+              <option>Savings</option>
             </select>
         </div> 
         <div class="mb-3">
