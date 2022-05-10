@@ -95,12 +95,12 @@ $username = get_username();
 $id = se($_GET, "id", -1, false);
 $isMe = true;
 $userData = [];
-$visibility = 0;
+$visibility = getVisibility(get_user_id());
 if($id > -1) 
 {
     $isMe = false;
     $db = getDB();
-    $query = "SELECT email, username, created, firstname, lastname, public from Users WHERE id = :id";
+    $query = "SELECT email, username, created, firstname, lastname, Public from Users WHERE id = :id";
     $stmt = $db->prepare($query);
     try 
     {
@@ -110,7 +110,6 @@ if($id > -1)
         {
             $userData = $r;
             $username = se($userData, "username", "", false);
-            $visibility = se($userData, "public", "", false);
         }
     } 
     catch (PDOException $e) 
@@ -137,18 +136,35 @@ endforeach;
         <?php /* Viewing our profile */ ?>
         <h1>Your Profile</h1>
         <form method="POST" onsubmit="return validate(this);">
-        <?php if($visibility = 1): ?>
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="flexSwitch" name ="flexSwitch" checked>
-                <label class="form-check-label" for="flexSwitch">Public</label>
+        <?php if($visibility == 1): ?>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="selection" id="private" value="0">
+            <label class="form-check-label" for="private_label">
+                Private
+            </label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="selection" id="public" value="1" checked>
+            <label class="form-check-label" for="public_label">
+                Public
+            </label>
             </div>
         <?php endif; ?>
-        <?php if($visibility = 0): ?>
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="flexSwitch" name ="flexSwitch" unchecked>
-                <label class="form-check-label" for="flexSwitch">Private</label>
+        <?php if($visibility == 0): ?>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="selection" id="private" value="0" checked>
+            <label class="form-check-label" for="private_label">
+                Private
+            </label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="selection" id="public" value="1">
+            <label class="form-check-label" for="public_label">
+                Public
+            </label>
             </div>
         <?php endif; ?>
+        <br>
             <div class="mb-3">
                 <label class="form-label" for="fname">First Name</label>
                 <input class="form-control" type="text" name="fname" id="fname" value="<?php se($firstname); ?>" />
@@ -196,6 +212,7 @@ endforeach;
             <div class="accordion-body"><?php se($userData, "username") ?></div>
             </div>
         </div>
+        <?php if(getVisibility($_GET["id"]) == 1): ?>
         <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingTwo">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
@@ -206,6 +223,21 @@ endforeach;
             <div class="accordion-body"><?php se($userData, "email") ?></div>
             </div>
         </div>
+        <?php endif; ?>
+        <?php if(getVisibility($_GET["id"]) == 0): ?>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                Email
+            </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body"> Not Available </div>
+            </div>
+        </div>
+        <?php endif; ?>
+
+
         <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingThree">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
@@ -237,6 +269,9 @@ endforeach;
         $firstname_change = se($_POST, "fname", "", false);
         $lastname_change = se($_POST, "lname", "", false);
         setProfileName($firstname_change, $lastname_change);
+
+        $selection = se($_POST, "selection", "", false);
+        setVisibility($selection);
     }
     
 ?>

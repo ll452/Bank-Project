@@ -93,10 +93,43 @@ function setProfileName ($fname, $lname)
     } catch (PDOException $e) {
         error_log(var_export($e->errorInfo, true));
         flash("There was an error setting profile name", "danger");
-        echo $fname, $lname;
     }
 
 }
 
+function setVisibility ($choice)
+{
+    $query = "UPDATE Users set public = :c WHERE id = :id";
+    $params[":id"] = get_user_id();
+    $params[":c"] = $choice;
+    $db = getDB();
+    $stmt = $db->prepare($query);
+    try {
+        $stmt->execute($params);
+        flash("Profile Visibility Updated", "Success");
+    } catch (PDOException $e) {
+        error_log(var_export($e->errorInfo, true));
+        flash("There was an error changing profile visibility", "danger");
+    }
+
+}
+
+function getVisibility($id)
+{
+    $query = "SELECT Public from Users WHERE id = :id";
+    $db = getDB();
+    $stmt = $db->prepare($query);
+    try {
+        $stmt->execute([":id" => $id]);
+        $r = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($r) {
+            return se($r, "Public", 0, false);
+        }
+    } catch (PDOException $e) {
+        error_log("Error fetching profile visibility: " . var_export($e->errorInfo, true));
+        flash("Error looking up profile visibility", "danger");
+    }
+    return 0;
+}
 
 ?>
