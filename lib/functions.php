@@ -31,6 +31,7 @@ require(__DIR__ . "/refresh_account_balance.php");
 
 require(__DIR__ . "/make_withdraw.php");
 
+require(__DIR__ . "/apy_helpers.php");
 ?>
 
 <?php

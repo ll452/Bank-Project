@@ -97,9 +97,11 @@ if (is_logged_in(true)) {
                             $account["account_number"] = str_pad($user_id, 12, "0");
                             flash("Welcome! Your account has been created successfully", "success");
                             makeIntialDeposit($deposit, "Deposit", -1, $account["id"], "Intial Deposit for Created Account");
+                            if($account_type == "Savings")
+                                insert_APY($account["id"]);
                             die(header("Location: list_accounts.php"));
                         } catch (PDOException $e) {
-                            flash("An error occurred while creating your account", "danger");
+                            flash("An error occurred while creating your account please retry", "danger");
                             error_log(var_export($e, true));
                         }
                     } else {
@@ -111,6 +113,8 @@ if (is_logged_in(true)) {
                         $account["id"] = $db->lastInsertId();
                         flash("Welcome! Your NEW account has been created successfully", "success");
                         makeIntialDeposit($deposit, "Deposit", -1, $account["id"], "Intial Deposit for Created Account");
+                        if($account_type == "Savings")
+                            insert_APY($account["id"]);
                         die(header("Location: list_accounts.php"));
                     }
                 } catch (PDOException $e) {

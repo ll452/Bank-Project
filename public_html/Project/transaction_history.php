@@ -3,7 +3,7 @@ require(__DIR__ . "/../../partials/nav.php");
 is_logged_in(true);
 
     $account_num = $_GET["acc_num"];
-    $query = "SELECT account_number, account_type, balance, created from Accounts WHERE account_number = $account_num";
+    $query = "SELECT account_number, account_type, balance, APY, created from Accounts WHERE account_number = $account_num";
     $db = getDB();
     $params = null;
     $stmt = $db->prepare($query);
@@ -50,6 +50,7 @@ is_logged_in(true);
             <th>Account Number</th>
             <th>Account Type</th>
             <th>Balance</th>
+            <th>APY</th>
             <th>Opened / Created</th>
         </thead>
         <tbody>
@@ -63,6 +64,7 @@ is_logged_in(true);
                         <td><?php se($account, "account_number"); ?></td>
                         <td><?php se($account, "account_type"); ?></td>
                         <td><?php se($account, "balance"); ?></td>
+                        <td><?php se($account, "APY"); ?></td>
                         <td><?php se($account, "created"); ?></td>
                     </tr>
                 <?php endforeach; ?>

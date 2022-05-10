@@ -1,0 +1,1 @@
+ALTER TABLE `Accounts` ADD COLUMN `APY` FLOAT default 0.0;
