@@ -46,3 +46,39 @@ function get_user_id()
     }
     return false;
 }
+
+function get_user_id_by_lname($id)
+{
+    $query = "SELECT id from Users WHERE lastname = :id";
+    $db = getDB();
+    $stmt = $db->prepare($query);
+    try {
+        $stmt->execute([":id" => $id]);
+        $r = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($r) {
+            return se($r, "id", 0, false);
+        }
+    } catch (PDOException $e) {
+        error_log("Error fetching id: " . var_export($e->errorInfo, true));
+        flash("Error looking up id", "danger");
+    }
+    return 0;
+}
+
+function get_user_lname($id)
+{
+    $query = "SELECT lastname from Users WHERE id = :id";
+    $db = getDB();
+    $stmt = $db->prepare($query);
+    try {
+        $stmt->execute([":id" => $id]);
+        $r = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($r) {
+            return se($r, "lastname", 0, false);
+        }
+    } catch (PDOException $e) {
+        error_log("Error fetching id: " . var_export($e->errorInfo, true));
+        flash("Error looking up id", "danger");
+    }
+    return 0;
+}
