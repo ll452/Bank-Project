@@ -11,7 +11,7 @@ is_logged_in(true);
   <a href="deposit.php" class="list-group-item list-group-item-action">Deposit</a>
   <a href="withdraw.php" class="list-group-item list-group-item-action">Withdraw</a>
   <a href="transfer_menu.php" class="list-group-item list-group-item-action">Transfer</a>
-  <a href="profile.php" class="list-group-item list-group-item-action">Profile</a>
+  <a href="profile.php?id=<?php se(get_user_id());?>" class="list-group-item list-group-item-action">Profile</a>
 </div>
 
 <?php
