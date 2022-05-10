@@ -3,6 +3,8 @@ require_once(__DIR__ . "/../../partials/nav.php");
 is_logged_in(true);
 ?>
 <?php
+$account_num = $_GET["acc_num"];
+$name = $_GET["acc_name"];
 $user_id = get_user_id();
 $query = "SELECT account_number, id, balance from Accounts WHERE user_id = $user_id ORDER BY modified desc LIMIT 5";
 $db = getDB();
@@ -16,10 +18,10 @@ $accounts = $results;
 
 
 <div class="container-fluid">
-<h1>Transfer</h1>
+<h1>Transfer to Another User</h1>
 <form onsubmit="return validate(this)" method="POST">
     <div class="mb-3">
-      <label for="acc_src" class="form-label">Source Account</label>
+      <label for="acc_src" class="form-label">Source Account (Your Account)</label>
       <select id="account" name="account_src" class="form-select">
         <?php foreach ($accounts as $account) : ?>
             <option> <?php se($account, "account_number"); ?> </option>
@@ -27,12 +29,12 @@ $accounts = $results;
       </select>
     </div>
     <div class="mb-3">
-      <label for="acc_dest" class="form-label">Destination Account</label>
-      <select id="account" name="account_dest" class="form-select">
-        <?php foreach ($accounts as $account) : ?>
-            <option> <?php se($account, "account_number"); ?> </option>
-        <?php endforeach; ?>
-      </select>
+      <label for="reciever_name" class="form-label">Reciever's Last Name</label>
+      <input type="text" id="name" name="name" value="<?php echo $name; ?>" class="form-control" readonly>
+    </div>
+    <div class="mb-3">
+      <label for="acc_dest" class="form-label">Destination Account (Different User Account)</label>
+      <input type="text" id="account_dest" name="account_dest" value="<?php echo $account_num; ?>" class="form-control" readonly>
     </div>
     <div class="mb-3">
       <label for="deposit_amount" class="form-label">Transfer Amount</label>
@@ -44,6 +46,7 @@ $accounts = $results;
     </div>
     <br>
     <button type="submit" class="btn btn-primary">Transfer</button>
+    <a class="btn btn-primary" href="pickuser.php" role="button"> Back </a>
 </form>
 </div>
 
@@ -90,7 +93,7 @@ $accounts = $results;
         }
         if(!$hasError)
             {
-            makeTransfer($account_dest, $amount, "Transfer", $source_id, $destination_id, $memo);
+            makeTransfer($account_dest, $amount, "Ext-Transfer", $source_id, $destination_id, $memo);
             flash("Transfer Made", "Success");
             }
     }
