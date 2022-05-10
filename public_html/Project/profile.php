@@ -232,7 +232,7 @@ endforeach;
             </button>
             </h2>
             <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body"> Not Available </div>
+            <div class="accordion-body"> Not Available (User Is Private) </div>
             </div>
         </div>
         <?php endif; ?>
@@ -255,7 +255,7 @@ endforeach;
             </button>
             </h2>
             <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body"> <?php se($userData, "created") ?> <?php echo $visibility; ?> </div>
+            <div class="accordion-body"> <?php se($userData, "created") ?> </div>
             </div>
         </div>
 

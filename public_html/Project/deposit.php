@@ -4,7 +4,7 @@ is_logged_in(true);
 ?>
 <?php
 $user_id = get_user_id();
-$query = "SELECT account_number, id, balance from Accounts WHERE user_id = $user_id ORDER BY modified desc LIMIT 5";
+$query = "SELECT account_number, id, balance from Accounts WHERE user_id = $user_id ORDER BY modified desc";
 $db = getDB();
 $params = null;
 $stmt = $db->prepare($query);

@@ -2,7 +2,7 @@
 require(__DIR__ . "/../../partials/nav.php");
 is_logged_in(true);
 $user_id = get_user_id();
-$query = "SELECT id, account_number, account_type, modified, balance from Accounts WHERE user_id = $user_id ORDER BY modified desc LIMIT 5";
+$query = "SELECT id, account_number, account_type, modified, balance, APY from Accounts WHERE user_id = $user_id ORDER BY modified desc";
 $db = getDB();
 $params = null;
 $stmt = $db->prepare($query);
@@ -30,6 +30,7 @@ try {
             <th>Account Type</th>
             <th>Modified</th>
             <th>Balance</th>
+            <th>APY</th>
         </thead>
         <tbody>
             <?php if (empty($accounts)) : ?>
@@ -43,6 +44,7 @@ try {
                         <td><?php se($account, "account_type"); ?></td>
                         <td><?php se($account, "modified"); ?></td>
                         <td><?php se($account, "balance"); ?></td>
+                        <td><?php se($account, "APY"); ?></td>
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>
