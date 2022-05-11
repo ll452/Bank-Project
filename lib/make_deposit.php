@@ -80,7 +80,6 @@ function loanDeposit($amount, $reason, $losing = -1, $gaining = -1, $details = "
     //I'm choosing to ignore the record of 0 point transactions
     if ($amount > 0) 
     {
-        $losing_id = "000000000000";
         $query = "INSERT INTO Transactions (account_src, account_dest, balance_change, transaction_type, memo, expected_total) 
             VALUES (:acs1, :acd1, :bc, :r,:m, :et1), 
             (:acs2, :acd2, :bc2, :r, :m, :et2)";
@@ -89,13 +88,13 @@ function loanDeposit($amount, $reason, $losing = -1, $gaining = -1, $details = "
         $params[":acd1"] = $gaining;
         $params[":r"] = $reason;
         $params[":m"] = $details;
-        $params[":bc"] = ($amount * -1);
-        $params[":et1"] = get_user_account_balance($losing_id) + ($amount * -1);
+        $params[":bc"] = $amount;
+        $params[":et1"] = get_user_account_balance($losing) + $amount;
 
         $params[":acs2"] = $gaining;
         $params[":acd2"] = $losing;
         $params[":bc2"] = $amount;
-        $params[":et2"] = $amount;
+        $params[":et2"] = get_user_account_balance($gaining) + $amount;
         $db = getDB();
         $stmt = $db->prepare($query);
         try {
