@@ -101,7 +101,7 @@ function setProfileName ($fname, $lname)
 
 }
 
-function setVisibility ($choice)
+function setVisibility($choice)
 {
     $query = "UPDATE Users set public = :c WHERE id = :id";
     $params[":id"] = get_user_id();
@@ -171,5 +171,21 @@ function makeLoanPayment($account_num, $amount, $reason, $losing = -1, $gaining 
     }
 }
 
+function closeAccount($account_num)
+{
+    $query = "UPDATE Accounts set `open/closed` = 0 WHERE (user_id = :id AND account_number = :an)";
+    $params[":id"] = get_user_id();
+    $params[":an"] = $account_num;
+    $db = getDB();
+    $stmt = $db->prepare($query);
+    try {
+        $stmt->execute($params);
+        flash("Account Closed", "Success");
+    } catch (PDOException $e) {
+        error_log(var_export($e->errorInfo, true));
+        flash("There was an error closing Account", "danger");
+    }
+
+}
 
 ?>

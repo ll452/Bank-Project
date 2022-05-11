@@ -4,7 +4,7 @@ is_logged_in(true);
 ?>
 <?php
 $user_id = get_user_id();
-$query = "SELECT account_number, id, balance from Accounts WHERE user_id = $user_id ORDER BY modified desc";
+$query = "SELECT `open/closed`, account_type, account_number, id, balance from Accounts WHERE user_id = $user_id ORDER BY modified desc";
 $db = getDB();
 $params = null;
 $stmt = $db->prepare($query);
@@ -14,6 +14,23 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $accounts = $results;
 ?>
 
+<?php
+$Loans = [];
+$other = [];
+foreach($accounts as $account):
+    {
+        if($account["open/closed"] == 1)
+            if($account["account_type"] == "Loan")
+            {
+                array_push($Loans, $account);
+            }
+            else
+            {
+                array_push($other, $account);
+            }
+    }
+    endforeach;
+?>
 
 <div class="container-fluid">
 <h1>Make Deposit</h1>
@@ -21,7 +38,7 @@ $accounts = $results;
     <div class="mb-3">
       <label for="which_account" class="form-label">Account</label>
       <select id="account" name="account" class="form-select">
-        <?php foreach ($accounts as $account) : ?>
+        <?php foreach ($other as $account) : ?>
             <option> <?php se($account, "account_number"); ?> </option>
         <?php endforeach; ?>
       </select>

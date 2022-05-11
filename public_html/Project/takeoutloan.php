@@ -9,7 +9,7 @@ if (is_logged_in(true)) {
 ?>
 <?php
 $user_id = get_user_id();
-$query = "SELECT account_number, id, balance from Accounts WHERE user_id = $user_id ORDER BY modified desc";
+$query = "SELECT account_type, account_number, id, balance from Accounts WHERE user_id = $user_id ORDER BY modified desc";
 $db = getDB();
 $params = null;
 $stmt = $db->prepare($query);
@@ -17,6 +17,22 @@ $accounts = [];
 $stmt->execute($params);
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $accounts = $results;
+?>
+<?php
+$Loans = [];
+$other = [];
+foreach($accounts as $account):
+{
+    if($account["account_type"] == "Loan")
+    {
+        array_push($Loans, $account);
+    }
+    else
+    {
+        array_push($other, $account);
+    }
+}
+endforeach;
 ?>
 <div class="container-fluid">
     <h1>Create Account</h1>
@@ -38,7 +54,7 @@ $accounts = $results;
         <div class="mb-3">
             <label for="acc_src" class="form-label">Source Account (Your Account)</label>
             <select id="account" name="account_src" class="form-select">
-                <?php foreach ($accounts as $account) : ?>
+                <?php foreach ($other as $account) : ?>
                     <option> <?php se($account, "account_number"); ?> </option>
                 <?php endforeach; ?>
             </select>
@@ -65,6 +81,7 @@ $accounts = $results;
 <?php
     if (isset($_POST["password"]) && isset($_POST["confirm"])) 
     {
+        $acc_src = se($_POST, "account_src", "", false);
         $password = se($_POST, "password", "", false);
         $confirm = se($_POST, "confirm", "", false);
         $deposit = se($_POST, "deposit", "", false);
@@ -99,6 +116,7 @@ $accounts = $results;
             $account_type = se($_POST, "acc_type", "", false);
             $deposit = se($_POST, "deposit", "", false);
             $account_number = randomNumber(12);
+            $memo = "Applied to Account: " . $acc_src; 
             $query = "INSERT INTO Accounts (account_number, account_type, user_id) VALUES (:an, :at, :uid)";
             $db = getDB();
             $stmt = $db->prepare($query);
@@ -106,8 +124,9 @@ $accounts = $results;
                 $stmt->execute([":an" => $account_number, ":at" => $account_type, ":uid" => $user_id]);
                 $account["id"] = $db->lastInsertId();
                 flash("Loan Applied", "success");
-                loanDeposit($deposit, "Loan Transfer", -1, $account["id"], "Bank Supplied Loan");
+                loanDeposit($deposit, "Loan Transfer", -1, $account["id"], $memo);
                 insert_APY_for_loan($account["id"]);
+                insertLoan($acc_src, $deposit);
                 redirect("list_accounts.php");
                 } 
                 catch (PDOException $e) 

@@ -66,3 +66,19 @@ function insert_APY_for_loan($acc_id)
             flash("There was an error setting APY", "danger");
         }
 }
+
+function insertLoan($acc_num, $loan)
+{
+    $query = "UPDATE Accounts SET balance=:b WHERE account_number = :an";
+    $params[":b"] = get_user_account_balance($acc_num) + $loan;
+    $params[":an"] = $acc_num;
+    $db = getDB();
+    $stmt = $db->prepare($query);
+    try {
+        $stmt->execute($params);
+        flash("Loan Applied", "Success");
+    } catch (PDOException $e) {
+        error_log(var_export($e->errorInfo, true));
+        flash("There was an error applying loan", "danger");
+    }
+}
