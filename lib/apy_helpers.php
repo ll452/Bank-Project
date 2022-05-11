@@ -50,3 +50,19 @@ function insert_APY($acc_id)
             flash("There was an error setting APY", "danger");
         }
 }
+
+function insert_APY_for_loan($acc_id)
+{
+        $query = "UPDATE Accounts SET APY=:apy WHERE id = :id";
+        $params[":apy"] = get_loan_interest_rate();
+        $params[":id"] = $acc_id;
+        $db = getDB();
+        $stmt = $db->prepare($query);
+        try {
+            $stmt->execute($params);
+            flash("APY For Savings Set", "Success");
+        } catch (PDOException $e) {
+            error_log(var_export($e->errorInfo, true));
+            flash("There was an error setting APY", "danger");
+        }
+}

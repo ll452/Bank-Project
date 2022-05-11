@@ -123,7 +123,7 @@ if (is_logged_in(true)) {
                 $_SESSION["user"]["account"] = $account; //storing the account info as a key under the user session
                 //Note: if there's an error it'll initialize to the "empty" definition around line 161
             }
-        }
+    }
 ?>
 <?php
 require(__DIR__ . "/../../partials/flash.php");
