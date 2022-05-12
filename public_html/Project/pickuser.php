@@ -32,17 +32,20 @@ $accounts = [];
         $currentname = get_user_lname(get_user_id());
         $name = se($_POST, "name", "", false);
         $user_id = get_user_id_by_lname($name);
-        $query = "SELECT `open/closed`, account_type, account_number, id, balance from Accounts WHERE user_id = $user_id ORDER BY modified desc";
+        $query = "SELECT `open/closed`, account_type, account_number, id, balance, frozen from Accounts WHERE user_id = $user_id ORDER BY modified desc";
         $db = getDB();
         $params = null;
         $stmt = $db->prepare($query);
         try {
             $stmt->execute($params);
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            if ($results) {
+            if ($results) 
+            {
                 $accounts = $results;
-            } else {
-                flash("No Accounts found", "warning");
+            } 
+            else 
+            {
+                flash("No Users found", "warning");
             }
         } catch (PDOException $e) {
             flash(var_export($e->errorInfo, true), "danger");
@@ -51,8 +54,8 @@ $accounts = [];
         $other = [];
         foreach($accounts as $account):
             {
-                if($account["open/closed"] == 1)
-                    if($account["account_type"] == "Loan")
+                if($account["open/closed"] == 1 || $account["frozen"] == 1)
+                    if($account["account_type"] == "Loan" || $account["frozen"] == 1)
                     {
                         array_push($Loans, $account);
                     }
@@ -70,13 +73,10 @@ $accounts = [];
             flash("Cannot Transfer to Self", "Danger");
         }
 
-        if(!$hasError)
-            {
-            flash("User Found", "Success");
-            }
-
-
-
+        if(strlen($name) == 0)
+        {
+            $hasError = true;
+        }
     }
 ?>
 
@@ -88,7 +88,7 @@ $accounts = [];
             <th>Account Type</th>
         </thead>
         <tbody>
-            <?php if (empty($accounts) || $hasError == true) : ?>
+            <?php if (empty($other) || $hasError == true) : ?>
                 <tr>
                     <td colspan="100%">No Accounts</td>
                 </tr>

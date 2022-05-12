@@ -6,7 +6,7 @@ is_logged_in(true);
 $account_num = $_GET["acc_num"];
 $name = $_GET["acc_name"];
 $user_id = get_user_id();
-$query = "SELECT account_number, id, balance from Accounts WHERE user_id = $user_id ORDER BY modified desc";
+$query = "SELECT * from Accounts WHERE user_id = $user_id ORDER BY modified desc";
 $db = getDB();
 $params = null;
 $stmt = $db->prepare($query);
@@ -14,6 +14,26 @@ $accounts = [];
 $stmt->execute($params);
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $accounts = $results;
+?>
+<?php
+$Loans = [];
+$other = [];
+foreach($accounts as $account):
+{
+    if($account["frozen"] == 0)  
+    { 
+        if($account["open/closed"] == 1)
+            if($account["account_type"] == "Loan")
+            {
+                array_push($Loans, $account);
+            }
+            else
+            {
+                array_push($other, $account);
+            }
+    }
+}
+endforeach;
 ?>
 
 
@@ -23,7 +43,7 @@ $accounts = $results;
     <div class="mb-3">
       <label for="acc_src" class="form-label">Source Account (Your Account)</label>
       <select id="account" name="account_src" class="form-select">
-        <?php foreach ($accounts as $account) : ?>
+        <?php foreach ($other as $account) : ?>
             <option> <?php se($account, "account_number"); ?> </option>
         <?php endforeach; ?>
       </select>
@@ -73,7 +93,7 @@ $accounts = $results;
 
 
         if((strlen($memo) == 0)) {
-            $memo = "User Made Withdrawal";
+            $memo = "User To User Transfer";
         }
 
         if($account_src === $account_dest)
