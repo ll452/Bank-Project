@@ -4,7 +4,7 @@ is_logged_in(true);
 ?>
 <?php
 $user_id = get_user_id();
-$query = "SELECT `open/closed`, account_type, account_number, id, balance from Accounts WHERE user_id = $user_id ORDER BY modified desc";
+$query = "SELECT frozen, `open/closed`, account_type, account_number, id, balance from Accounts WHERE user_id = $user_id ORDER BY modified desc";
 $db = getDB();
 $params = null;
 $stmt = $db->prepare($query);
@@ -17,7 +17,9 @@ $accounts = $results;
 $Loans = [];
 $other = [];
 foreach($accounts as $account):
-    {
+{
+    if($account["frozen"] == 0)  
+    { 
         if($account["open/closed"] == 1)
             if($account["account_type"] == "Loan")
             {
@@ -28,7 +30,8 @@ foreach($accounts as $account):
                 array_push($other, $account);
             }
     }
-    endforeach;
+}
+endforeach;
 ?>
 
 <div class="container-fluid">

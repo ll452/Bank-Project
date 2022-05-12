@@ -4,7 +4,7 @@ is_logged_in(true);
 ?>
 <?php
 $user_id = get_user_id();
-$query = "SELECT account_type, account_number, id, balance from Accounts WHERE user_id = $user_id ORDER BY modified desc";
+$query = "SELECT * from Accounts WHERE user_id = $user_id ORDER BY modified desc";
 $db = getDB();
 $params = null;
 $stmt = $db->prepare($query);
@@ -16,13 +16,17 @@ $Loans = [];
 $other = [];
 foreach($accounts as $account):
 {
-    if($account["account_type"] == "Loan")
-    {
-        array_push($Loans, $account);
-    }
-    else
-    {
-        array_push($other, $account);
+    if($account["frozen"] == 0)  
+    { 
+        if($account["open/closed"] == 1)
+            if($account["account_type"] == "Loan")
+            {
+                array_push($Loans, $account);
+            }
+            else
+            {
+                array_push($other, $account);
+            }
     }
 }
 endforeach;
@@ -91,6 +95,11 @@ endforeach;
 
         if($amount > $balance) {
             flash("Can't Withdraw More Than Balance", "danger");
+            $hasError = true; 
+        }
+
+        if(strlen($account_dest) == 0) {
+            flash("No Loan To Pay Off", "danger");
             $hasError = true; 
         }
 
