@@ -164,9 +164,15 @@ function makeLoanPayment($account_num, $amount, $reason, $losing = -1, $gaining 
             refresh_account_balance($losing);
             refresh_account_balance($gaining);
             flash("Transfer Made", "Success");
-        } catch (PDOException $e) {
+        } 
+        catch (PDOException $e) 
+        {
             error_log(var_export($e->errorInfo, true));
             flash("There was an error transfering money", "danger");
+        }
+        if(get_user_account_balance($account_num) == 0)
+        {
+            closeAccount($account_num);
         }
     }
 }
