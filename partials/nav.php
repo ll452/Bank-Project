@@ -54,6 +54,8 @@ session_start();
                             <li><a class="dropdown-item" href="<?php echo get_url('admin/create_role.php'); ?>">Create</a></li>
                             <li><a class="dropdown-item" href="<?php echo get_url('admin/list_roles.php'); ?>">List</a></li>
                             <li><a class="dropdown-item" href="<?php echo get_url('admin/assign_roles.php'); ?>">Assign</a></li>
+                            <li><a class="dropdown-item" href="<?php echo get_url('admin/user_search.php'); ?>">Search User</a></li>
+                            <li><a class="dropdown-item" href="<?php echo get_url('admin/account_numlookup.php'); ?>">User Account Lookup</a></li>
                         </ul>
                     </li>
                 <?php endif; ?>

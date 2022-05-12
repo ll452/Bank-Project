@@ -1,6 +1,13 @@
 <?php
-require(__DIR__ . "/../../partials/nav.php");
+require(__DIR__ . "/../../../partials/nav.php");
+
+if (!has_role("Admin")) 
+{
+    flash("You don't have permission to view this page", "warning");
+    die(header("Location: " . get_url("home.php")));
+}
 ?>
+
 <?php
 if (is_logged_in(true)) {
     //comment this out if you don't want to see the session variables
@@ -9,7 +16,7 @@ if (is_logged_in(true)) {
 ?>
 
 <div class="container-fluid">
-    <h1>Create Account</h1>
+    <h1>(Admin) Create Account For User</h1>
     <form onsubmit="return validate(this)" method="POST">
         <div class="mb-3">
             <label for="account_type" class="form-label">Account Type</label>
@@ -31,8 +38,11 @@ if (is_logged_in(true)) {
             <input class="form-control" type="password" name="confirm" required minlength="8" />
         </div>
         <input type="submit" class="mt-3 btn btn-primary" value="Create" />
+        <br><br>
+        <a class="btn btn-primary" href="user_search.php" role="button"> Back </a>
     </form>
 </div>
+
 <script>
     function validate(form) {
         //TODO 1: implement JavaScript validation
@@ -41,6 +51,7 @@ if (is_logged_in(true)) {
         return true;
     }
 </script>
+
 <?php
     if (isset($_POST["password"]) && isset($_POST["confirm"])) 
     {
@@ -73,17 +84,15 @@ if (is_logged_in(true)) {
         }
         if(!$hasError)
             {
-                //let's define our data structure first
-                //id is for internal references, account_number is user facing info, and balance will be a cached value of activity
                 $account = ["id" => -1, "account_number" => false, "balance" => 0];
                 //this should always be 0 or 1, but being safe
                 $query = "SELECT id, account_number, balance from Accounts where user_id = :uid LIMIT 1";
                 $db = getDB();
                 $stmt = $db->prepare($query);
                 try {
-                    $stmt->execute([":uid" => get_user_id()]);
+                    $user_id = $_GET["id"];
+                    $stmt->execute([":uid" => $user_id]);
                     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                    $user_id = get_user_id(); //caching a reference
                     $account_type = se($_POST, "acc_type", "", false);
                     $deposit = se($_POST, "deposit", "", false);
                     $query = "INSERT INTO Accounts (account_type, user_id) VALUES (:at, :uid)";
@@ -95,36 +104,34 @@ if (is_logged_in(true)) {
                             $account["id"] = $db->lastInsertId();
                             //this should mimic what's happening in the DB without requiring me to fetch the data
                             $account["account_number"] = str_pad($user_id, 12, "0");
-                            flash("Welcome! Your account has been created successfully", "success");
+                            flash("Account For User Successfully Created", "success");
                             makeIntialDeposit($deposit, "Deposit", -1, $account["id"], "Intial Deposit for Created Account");
                             if($account_type == "Savings")
                                 insert_APY($account["id"]);
-                            die(header("Location: list_accounts.php"));
                         } catch (PDOException $e) {
-                            flash("An error occurred while creating your account please retry", "danger");
+                            flash("Error Creating Account For User", "danger");
                             error_log(var_export($e, true));
                         }
                     } else {
                         $query = "INSERT INTO Accounts (account_number, account_type, user_id) VALUES (:an, :at, :uid)";
-                        $user_id = get_user_id();
+                        $user_id = $_GET["id"];
                         $account_number = randomNumber(12);
                         $stmt = $db->prepare($query);
                         $stmt->execute([":an" => $account_number, ":at" => $account_type, ":uid" => $user_id]);
                         $account["id"] = $db->lastInsertId();
-                        flash("Welcome! Your NEW account has been created successfully", "success");
+                        flash("Account For User Successfully Created", "success");
                         makeIntialDeposit($deposit, "Deposit", -1, $account["id"], "Intial Deposit for Created Account");
                         if($account_type == "Savings")
                             insert_APY($account["id"]);
-                        die(header("Location: list_accounts.php"));
                     }
                 } catch (PDOException $e) {
-                    flash("Technical error: " . var_export($e->errorInfo, true), "danger");
+                    flash("Technical Error: " . var_export($e->errorInfo, true), "danger");
                 }
-                $_SESSION["user"]["account"] = $account; //storing the account info as a key under the user session
-                //Note: if there's an error it'll initialize to the "empty" definition around line 161
             }
     }
 ?>
+
+
 <?php
-require(__DIR__ . "/../../partials/flash.php");
+require_once(__DIR__ . "/../../../partials/flash.php");
 ?>

@@ -85,43 +85,197 @@ if (isset($_POST["save"])) {
                 flash("New passwords don't match", "warning");
             }
         }
-    }
+    }    
 }
 ?>
 
 <?php
 $email = get_user_email();
 $username = get_username();
+$id = se($_GET, "id", -1, false);
+$isMe = true;
+$userData = [];
+$visibility = getVisibility(get_user_id());
+if($id > -1) 
+{
+    $isMe = false;
+    $db = getDB();
+    $query = "SELECT email, username, created, firstname, lastname, Public from Users WHERE id = :id";
+    $stmt = $db->prepare($query);
+    try 
+    {
+        $stmt->execute([":id" => $id]);
+        $r = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($r) 
+        {
+            $userData = $r;
+            $username = se($userData, "username", "", false);
+        }
+    } 
+    catch (PDOException $e) 
+    {
+        error_log("Error looking up user $id's profile: " . var_export($e->errorInfo, true));
+    }
+}
+
+$firstname = "";
+$lastname = "";
+$db = getDB();
+$stmt = $db->prepare("SELECT firstname, lastname from Users where id = :id");
+$stmt->execute([":id" => get_user_id()]);
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+foreach ($result as $x):
+    $firstname = se($x, "firstname","",false); 
+    $lastname = se($x, "lastname","",false); 
+endforeach;
 ?>
 
+
 <div class="container-fluid">
-    <h1>Profile</h1>
-    <form method="POST" onsubmit="return validate(this);">
-        <div class="mb-3">
-            <label class="form-label" for="email">Email</label>
-            <input class="form-control" type="email" name="email" id="email" value="<?php se($email); ?>" />
+    <?php if ($isMe) : ?>
+        <?php /* Viewing our profile */ ?>
+        <h1>Your Profile</h1>
+        <form method="POST" onsubmit="return validate(this);">
+        <?php if($visibility == 1): ?>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="selection" id="private" value="0">
+            <label class="form-check-label" for="private_label">
+                Private
+            </label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="selection" id="public" value="1" checked>
+            <label class="form-check-label" for="public_label">
+                Public
+            </label>
+            </div>
+        <?php endif; ?>
+        <?php if($visibility == 0): ?>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="selection" id="private" value="0" checked>
+            <label class="form-check-label" for="private_label">
+                Private
+            </label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="selection" id="public" value="1">
+            <label class="form-check-label" for="public_label">
+                Public
+            </label>
+            </div>
+        <?php endif; ?>
+        <br>
+            <div class="mb-3">
+                <label class="form-label" for="fname">First Name</label>
+                <input class="form-control" type="text" name="fname" id="fname" value="<?php se($firstname); ?>" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="lname">Last Name</label>
+                <input class="form-control" type="text" name="lname" id="lname" value="<?php se($lastname); ?>" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="email">Email</label>
+                <input class="form-control" type="email" name="email" id="email" value="<?php se($email); ?>" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="username">Username</label>
+                <input class="form-control" type="text" name="username" id="username" value="<?php se($username); ?>" />
+            </div>
+            <!-- DO NOT PRELOAD PASSWORD -->
+            <div class="mb-3">Password Reset</div>
+            <div class="mb-3">
+                <label class="form-label" for="cp">Current Password</label>
+                <input class="form-control" type="password" name="currentPassword" id="cp" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="np">New Password</label>
+                <input class="form-control" type="password" name="newPassword" id="np" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="conp">Confirm Password</label>
+                <input class="form-control" type="password" name="confirmPassword" id="conp" />
+            </div>
+            <input class="btn btn-primary" type="submit" value="Update Profile" name="save" />
+            <a href="?id=<?php se(get_user_id());   ?>" class="btn btn-primary">View Public Profile</a>
+        </form>
+    <?php else: ?>
+        <?php /* Viewing someone elses profile */ ?>
+        <h1><?php echo ($username . "'s Profile"); ?> </h1>
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                Username
+            </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body"><?php se($userData, "username") ?></div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="username">Username</label>
-            <input class="form-control" type="text" name="username" id="username" value="<?php se($username); ?>" />
+        <?php if(getVisibility($_GET["id"]) == 1): ?>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                Email
+            </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body"><?php se($userData, "email") ?></div>
+            </div>
         </div>
-        <!-- DO NOT PRELOAD PASSWORD -->
-        <div class="mb-3">Password Reset</div>
-        <div class="mb-3">
-            <label class="form-label" for="cp">Current Password</label>
-            <input class="form-control" type="password" name="currentPassword" id="cp" />
+        <?php endif; ?>
+        <?php if(getVisibility($_GET["id"]) == 0): ?>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                Email
+            </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body"> Not Available (User Is Private) </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="np">New Password</label>
-            <input class="form-control" type="password" name="newPassword" id="np" />
+        <?php endif; ?>
+
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                First and Last Name
+            </button>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body"> <?php se($userData, "firstname") ?> <?php se($userData, "lastname") ?> </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="conp">Confirm Password</label>
-            <input class="form-control" type="password" name="confirmPassword" id="conp" />
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                Date Joined
+            </button>
+            </h2>
+            <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body"> <?php se($userData, "created") ?> </div>
+            </div>
         </div>
-        <input type="submit" class="mt-3 btn btn-primary" value="Update Profile" name="save" />
-    </form>
+
+        </div>
+    <?php endif; ?>
 </div>
+
+<?php
+    if (isset($_POST["fname"]) && isset($_POST["lname"]))
+    {
+        $firstname_change = se($_POST, "fname", "", false);
+        $lastname_change = se($_POST, "lname", "", false);
+        setProfileName($firstname_change, $lastname_change);
+
+        $selection = se($_POST, "selection", "", false);
+        setVisibility($selection);
+    }
+    
+?>
+
 
 <script>
     function validate(form) {
