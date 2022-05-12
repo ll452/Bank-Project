@@ -74,18 +74,30 @@
         -  [https://ll452-prod.herokuapp.com/Project/withdraw.php](https://ll452-prod.herokuapp.com/Project/withdraw.php)
 
 - Milestone 3
-    - [x] \(mm/dd/yyyy of completion) User will be able to transfer between their accounts
+    - [x] \(4/26/2022) User will be able to transfer between their accounts
         -  [Milestone 3 Markdown](https://github.com/ll452/IT202/blob/Milestone3/public_html/Project/milestone3.md)
     - [ ] \(mm/dd/yyyy of completion) Transaction History page
         -  [Milestone 3 Markdown](https://github.com/ll452/IT202/blob/Milestone3/public_html/Project/milestone3.md)
-    - [x] \(mm/dd/yyyy of completion) User’s profile page should record/show First and Last name
+    - [x] \(5/4/2022) User’s profile page should record/show First and Last name
         -  [Milestone 3 Markdown](https://github.com/ll452/IT202/blob/Milestone3/public_html/Project/milestone3.md)
-    - [ ] \(mm/dd/yyyy of completion) User will be able to transfer funds to another user’s account
+    - [x] \(5/9/2022) User will be able to transfer funds to another user’s account
         -  [Milestone 3 Markdown](https://github.com/ll452/IT202/blob/Milestone3/public_html/Project/milestone3.md)    
 
 - Milestone 4
-  - (duplicate template here for Milestone 1 features)
-  - 
+    - [x] \(5/10/2022) User can set their profile to be public or private (will need another column in Users table)
+        -  [Milestone 4 Markdown](https://github.com/ll452/IT202/blob/Milestone4/public_html/Project/milestone4.md)    
+    - [x] \(5/10/2022) User will be able open a savings account
+        -  [Milestone 4 Markdown](https://github.com/ll452/IT202/blob/Milestone4/public_html/Project/milestone4.md)    
+    - [x] \(5/10/2022) User will be able to take out a loan
+        -  [Milestone 4 Markdown](https://github.com/ll452/IT202/blob/Milestone4/public_html/Project/milestone4.md)    
+    - [x] \(5/10/2022) Listing accounts and/or viewing Account Details should show any applicable APY or “-” if none is set for the particular account
+        -  [Milestone 4 Markdown](https://github.com/ll452/IT202/blob/Milestone4/public_html/Project/milestone4.md)    
+    - [x] \(5/11/2022) User will be able to close an account
+        -  [Milestone 4 Markdown](https://github.com/ll452/IT202/blob/Milestone4/public_html/Project/milestone4.md)    
+    - [x] \(5/11/2022) Admin role (leave this section for last)
+        -  [Milestone 4 Markdown](https://github.com/ll452/IT202/blob/Milestone4/public_html/Project/milestone4.md)   
+
+
 ### Intructions
 #### Don't delete this
 1. Pick one project type
