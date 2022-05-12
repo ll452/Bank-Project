@@ -1,7 +1,13 @@
 <?php
-require(__DIR__ . "/../../partials/nav.php");
+require(__DIR__ . "/../../../partials/nav.php");
+if (!has_role("Admin")) 
+{
+    flash("You don't have permission to view this page", "warning");
+    die(header("Location: " . get_url("home.php")));
+}
+
 is_logged_in(true);
-$user_id = get_user_id();
+$user_id = $_GET["id"];
 $query = "SELECT id, account_number, account_type, `open/closed`, modified, balance, APY from Accounts WHERE user_id = $user_id ORDER BY modified desc";
 $db = getDB();
 $params = null;
@@ -54,7 +60,7 @@ foreach($accounts as $account):
             <?php else : ?>
                 <?php foreach ($other as $account) : ?>
                     <tr>
-                        <td><a href="transaction_history.php?id=<?php echo se($account, "id");?>&acc_num=<?php echo se($account, "account_number");?>"> <?php se($account, "account_number"); ?></a></td>
+                        <td><a href="admin_view_transactions.php?id=<?php echo se($account, "id");?>&acc_num=<?php echo se($account, "account_number");?>"> <?php se($account, "account_number"); ?></a></td>
                         <td><?php se($account, "account_type"); ?></td>
                         <td><?php se($account, "modified"); ?></td>
                         <td><?php se($account, "balance"); ?></td>
@@ -80,7 +86,7 @@ foreach($accounts as $account):
             <?php else : ?>
                 <?php foreach ($Loans as $account) : ?>
                     <tr>
-                        <td><a href="transaction_history.php?id=<?php echo se($account, "id");?>&acc_num=<?php echo se($account, "account_number");?>"> <?php se($account, "account_number"); ?></a></td>
+                        <td><a href="admin_view_transactions.php?id=<?php echo se($account, "id");?>&acc_num=<?php echo se($account, "account_number");?>"> <?php se($account, "account_number"); ?></a></td>
                         <td><?php se($account, "account_type"); ?></td>
                         <td><?php se($account, "modified"); ?></td>
                         <td><?php se($account, "balance"); ?></td>
@@ -90,9 +96,11 @@ foreach($accounts as $account):
             <?php endif; ?>
         </tbody>
     </table>
+    <a class="btn btn-primary" href="user_search.php" role="button"> Back </a>
+
 
 </div>
 
 <?php
-require_once(__DIR__ . "/../../partials/flash.php");
+require_once(__DIR__ . "/../../../partials/flash.php");
 ?>
