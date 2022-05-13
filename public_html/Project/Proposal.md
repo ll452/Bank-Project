@@ -4,7 +4,7 @@
 ## Project Board Link: [https://github.com/ll452/IT202/projects/1](https://github.com/ll452/IT202/projects/1)
 ## Website Link: [https://ll452-prod.herokuapp.com/Project](https://ll452-prod.herokuapp.com/Project)
 ## Your Name: Lap Le
-
+## My Video: [https://www.youtube.com/watch?v=SDHdfkNyJrQ](https://www.youtube.com/watch?v=SDHdfkNyJrQ)
 <!-- Line item / Feature template (use this for each bullet point) -- DO NOT DELETE THIS SECTION
 
 
