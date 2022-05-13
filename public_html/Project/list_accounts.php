@@ -54,7 +54,7 @@ foreach($accounts as $account):
             <?php else : ?>
                 <?php foreach ($other as $account) : ?>
                     <tr>
-                        <td><a href="transaction_history.php?id=<?php echo se($account, "id");?>&acc_num=<?php echo se($account, "account_number");?>"> <?php se($account, "account_number"); ?></a></td>
+                        <td><a href="new_trans_history.php?id=<?php echo se($account, "id");?>&acc_num=<?php echo se($account, "account_number");?>"> <?php se($account, "account_number"); ?></a></td>
                         <td><?php se($account, "account_type"); ?></td>
                         <td><?php se($account, "modified"); ?></td>
                         <td><?php se($account, "balance"); ?></td>
@@ -80,7 +80,7 @@ foreach($accounts as $account):
             <?php else : ?>
                 <?php foreach ($Loans as $account) : ?>
                     <tr>
-                        <td><a href="transaction_history.php?id=<?php echo se($account, "id");?>&acc_num=<?php echo se($account, "account_number");?>"> <?php se($account, "account_number"); ?></a></td>
+                        <td><a href="new_trans_history.php?id=<?php echo se($account, "id");?>&acc_num=<?php echo se($account, "account_number");?>"> <?php se($account, "account_number"); ?></a></td>
                         <td><?php se($account, "account_type"); ?></td>
                         <td><?php se($account, "modified"); ?></td>
                         <td><?php se($account, "balance"); ?></td>
