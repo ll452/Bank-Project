@@ -25,8 +25,8 @@ is_logged_in(true);
 <?php
     $id = $_GET["id"];
     $t_query = "SELECT count(1) as total FROM Transactions B WHERE 1";
-    $d_query = "SELECT B.created, B.balance_change, B.transaction_type, B.memo AS A1 FROM 
-    Transactions B JOIN Accounts A1 on A1.id = B.account_src JOIN Accounts A2 on A2.id = B.account_dest WHERE 1";
+    $d_query = "SELECT B.id, B.account_src, B.account_dest, B.expected_total, B.created, B.balance_change, B.transaction_type, B.memo AS A1 
+    FROM Transactions B JOIN Accounts A1 on A1.id = B.account_src JOIN Accounts A2 on A2.id = B.account_dest WHERE 1";
     $start = se($_GET, "start", date("Y-m-d", strtotime("-1 month")), false);
     $end = se($_GET, "end", date("Y-m-d"), false);
     $type = se($_GET, "type", false, false);
@@ -105,12 +105,15 @@ is_logged_in(true);
     $d_query .= " LIMIT :offset, :limit";
     $transactions = [];
     $stmt = $db->prepare($d_query);
-    try {
+    try 
+    {
         $params[":offset"] = $offset;
         $params[":limit"] = $records_per_page;
         $stmt->execute($params);
         $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
+    } 
+    catch (PDOException $e) 
+    {
         error_log("Error getting records: " . var_export($e->errorInfo, true));
         flash("There was a problem with your request, please try again", "warning");
     }
@@ -196,16 +199,16 @@ is_logged_in(true);
                     <tr>
                         <td><?php se($transaction, "transaction_type"); ?></td>
                         <?php if (se($transaction, "transaction_type", "", false) == "Withdraw") : ?>
-                            <td><?php se($transaction, "account_src"); ?></td>
-                            <td><?php se($transaction, "account_dest"); ?></td>
+                            <td><?php echo (get_user_account_number(se($transaction, "account_src","",false))); ?></td>
+                            <td><?php echo (get_user_account_number(se($transaction, "account_dest","",false))); ?></td>
                         <?php else : ?>
-                            <td><?php se($transaction, "account_dest"); ?></td>
-                            <td><?php se($transaction, "account_src"); ?></td>
+                            <td><?php echo (get_user_account_number(se($transaction, "account_dest","",false))); ?></td>
+                            <td><?php echo (get_user_account_number(se($transaction, "account_src","",false))); ?></td>
                         <?php endif; ?>
                         <td><?php se($transaction, "balance_change"); ?></td>
                         <td><?php se($transaction, "created"); ?></td>
                         <td><?php se($transaction, "expected_total"); ?></td>
-                        <td><?php se($transaction, "memo"); ?></td>
+                        <td><?php se($transaction, "A1"); ?></td>
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>
