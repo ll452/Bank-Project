@@ -77,9 +77,9 @@
     - [x] \(4/26/2022) User will be able to transfer between their accounts
         -  [Milestone 3 Markdown](https://github.com/ll452/IT202/blob/Milestone3/public_html/Project/milestone3.md)
         -  [https://ll452-prod.herokuapp.com/Project/transfer.php](https://ll452-prod.herokuapp.com/Project/transfer.php)
-    - [ ] \(mm/dd/yyyy of completion) Transaction History page
+    - [x] \(5/12/2022) Transaction History page
         -  [Milestone 3 Markdown](https://github.com/ll452/IT202/blob/Milestone3/public_html/Project/milestone3.md)
-        -  []()
+        -  [https://ll452-prod.herokuapp.com/Project/new_trans_history.php?id=4&acc_num=000000000002](https://ll452-prod.herokuapp.com/Project/new_trans_history.php?id=4&acc_num=000000000002)
     - [x] \(5/4/2022) User’s profile page should record/show First and Last name
         -  [Milestone 3 Markdown](https://github.com/ll452/IT202/blob/Milestone3/public_html/Project/milestone3.md)
         -  [https://ll452-prod.herokuapp.com/Project/profile.php](https://ll452-prod.herokuapp.com/Project/profile.php)
