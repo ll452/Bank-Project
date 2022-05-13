@@ -89,7 +89,7 @@ endforeach;
 
 
         if((strlen($memo) == 0)) {
-            $memo = "User Made Withdrawal";
+            $memo = "User to User Transfer";
         }
 
         if($account_src === $account_dest)

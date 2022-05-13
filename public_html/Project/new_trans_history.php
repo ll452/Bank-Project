@@ -201,6 +201,9 @@ is_logged_in(true);
                         <?php if (se($transaction, "transaction_type", "", false) == "Withdraw") : ?>
                             <td><?php echo (get_user_account_number(se($transaction, "account_src","",false))); ?></td>
                             <td><?php echo (get_user_account_number(se($transaction, "account_dest","",false))); ?></td>
+                        <?php elseif (se($transaction, "transaction_type", "", false) == "Loan Payment") : ?>
+                            <td><?php echo (get_user_account_number(se($transaction, "account_src","",false))); ?></td>
+                            <td><?php echo (get_user_account_number(se($transaction, "account_dest","",false))); ?></td>
                         <?php else : ?>
                             <td><?php echo (get_user_account_number(se($transaction, "account_dest","",false))); ?></td>
                             <td><?php echo (get_user_account_number(se($transaction, "account_src","",false))); ?></td>
