@@ -24,7 +24,8 @@ is_logged_in(true);
 
 <?php
     $id = $_GET["id"];
-    $trans_query = "SELECT A.account_number as account_src, B.account_number as account_dest, transaction_type, balance_change, T.created, expected_total, memo FROM Transactions as T JOIN Accounts as A ON A.id = T.account_src JOIN Accounts as B ON B.id = T.account_dest WHERE T.account_src = $id ORDER BY T.modified desc LIMIT 10";
+    $trans_query = "SELECT A.account_number as account_src, B.account_number as account_dest, transaction_type, balance_change, T.created, expected_total, memo 
+    FROM Transactions as T JOIN Accounts as A ON A.id = T.account_src JOIN Accounts as B ON B.id = T.account_dest WHERE T.account_src = $id ORDER BY T.modified desc LIMIT 10";
     $db = getDB();
     $params = null;
     $stmt = $db->prepare($trans_query);

@@ -1,0 +1,49 @@
+<div class="container-fluid">
+    <?php $title = "Account History";
+    include(__DIR__ . "/../../partials/title.php"); ?>
+    <div>
+        <form>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="start-date">Start</span>
+                <input name="start" type="date" class="form-control" placeholder="mm/dd/yyyy" aria-label="start date" aria-describedby="start-date" value="<?php se($start); ?>">
+                <span class="input-group-text" id="end-date">End</span>
+                <input name="end" type="date" class="form-control" placeholder="mm/dd/yyyy" aria-label="end date" aria-describedby="end-date" value="<?php se($end); ?>">
+                <span class="input-group-text" id="filter">Reason</span>
+                <select class="form-control" name="type" aria-label="filter" aria-describedby="filter">
+                    <option <?php if ($type === "none") {
+                                echo "selected";
+                            } ?> value="none">None</option>
+                    <?php foreach ($options as $opt) : ?>
+                        <?php /* $options isn't a flat array so $opt is an array of column name => value
+                        Using array_values() to extract the values we want*/ ?>
+                        <?php $v =  trim(array_values($opt)[0]); ?>
+                        <option <?php if ($type === $v) {
+                                    //used to show a preselected value by echoing the "selected" attribute if the condition is true
+                                    //note this is inside the first <option > tag before the closing >
+                                    echo "selected";
+                                } ?> value="<?php se($v); ?>"><?php se(str_replace("_", " ", $v)); ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <span class="input-group-text" id="sort">Sort</span>
+                <?php /* This is an example of a hardcoded dropdown. These values are not dynamic. */ ?>
+                <select class="form-control" name="sort" aria-label="sort" aria-describedby="sort">
+                    <option value="-date">Created New to Old</option>
+                    <option value="+date">Created Old to New</option>
+                    <option value="-change">Change High to Low</option>
+                    <option value="+change">Change Low to High</option>
+                </select>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Filter" />
+        </form>
+    </div>
+    <?php if (count($results) == 0) : ?>
+        <p>No results to show</p>
+    <?php else : ?>
+        <?php /* Since I'm just showing data, I'm lazily using my dynamic view example */ ?>
+        <?php include(__DIR__ . "/../../partials/dynamic_list.php"); ?>
+    <?php endif; ?>
+    <div>
+        <?php /** required $total_pages and $page to be set */ ?>
+        <?php include(__DIR__ . "/../../partials/pagination.php"); ?>
+    </div>
+</div>
