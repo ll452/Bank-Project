@@ -1,1 +1,1 @@
-## Github Link: [https://github.com/ll452/Bank-Project/blob/prod/public_html/Project/Proposal.md](https://github.com/ll452/Bank-Project/blob/prod/public_html/Project/Proposal.md)
+## Github Link: [https://ll452-prod.herokuapp.com/Project](https://ll452-prod.herokuapp.com/Project)
