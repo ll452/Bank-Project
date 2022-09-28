@@ -1,1 +1,1 @@
-## Github Link: [https://github.com/ll452/IT202/tree/prod/public_html/Project](https://github.com/ll452/IT202/tree/prod/public_html/Project)
+## Github Link: [https://github.com/ll452/Bank-Project/blob/prod/public_html/Project/Proposal.md](https://github.com/ll452/Bank-Project/blob/prod/public_html/Project/Proposal.md)
